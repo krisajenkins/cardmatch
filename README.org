@@ -1,0 +1,24 @@
+* Card Match Capes
+
+A little web game written in Elm (with some
+Haskell). [[http://krisajenkins.github.io/cardmatch][Try it out]].
+
+
+** Building
+
+Still very much a work-in-progress, but if you have stack & elm
+installed, you can try it out if you wish:
+
+*** Build the UI
+#+BEGIN_SRC sh
+( cd ui ; make )
+#+END_SRC
+
+*** Build the server
+Edit =src/Keys.hs=.
+
+#+BEGIN_SRC sh
+stack install
+sphere -d | tee products.json
+sphere -w
+#+END_SRC

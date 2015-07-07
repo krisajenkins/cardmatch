@@ -55,13 +55,12 @@ searchProducts =
 ------------------------------------------------------------
 
 data Flag
-  = Webserver
-  | ParseProducts String
+  = ParseProducts String
   | DownloadProducts
   deriving (Show)
 
 handleCommand :: ([Flag],[String],[String]) -> IO ()
-handleCommand ([Webserver],[],[]) = webserver
+handleCommand ([],[],[]) = webserver
 handleCommand ([DownloadProducts],[],[]) = searchProducts
 handleCommand ([(ParseProducts filename)],[],[]) = parseProducts filename >>=
                                                    print
@@ -71,11 +70,7 @@ handleCommand (_,_,errors) =
 
 options :: [OptDescr Flag]
 options =
-  [Option "w"
-          ["webserver"]
-          (NoArg Webserver)
-          "Starts a webserver."
-  ,Option "d"
+  [Option "d"
           ["download"]
           (NoArg DownloadProducts)
           "Download product data."

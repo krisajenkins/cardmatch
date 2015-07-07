@@ -42,7 +42,7 @@ initSphere =
   makeSnaplet "sphere" "Code for connecting to sphere." Nothing $
   do parsed <-
        liftIO $
-       parseProducts "../etc/products.json"
+       parseProducts "products.json"
      case parsed of
        Left e -> fail e
        Right response ->
