@@ -7,8 +7,8 @@ import Schema exposing (..)
 import Signal exposing (constant)
 
 products : Signal (Http.Response (List Product))
-products = Signal.map (Http.mapResult <| decodeString decodeProducts)
-                      (Http.sendGet <| constant "/products.json")
+products = Signal.map (Http.mapResult <| decodeString (at ["results"] decodeProducts))
+                      (Http.sendGet <| constant "products.json")
 
 decodeDimensions : Decoder Dimensions
 decodeDimensions = Dimensions
