@@ -57,7 +57,9 @@ Elm.API.make = function (_elm) {
    decodeVariant));
    var decodeProducts = $Json$Decode.list(decodeProduct);
    var products = A2($Signal.map,
-   $Http.mapResult($Json$Decode.decodeString(decodeProducts)),
+   $Http.mapResult($Json$Decode.decodeString(A2($Json$Decode.at,
+   _L.fromArray(["result"]),
+   decodeProducts))),
    $Http.sendGet($Signal.constant("products.json")));
    _elm.API.values = {_op: _op
                      ,products: products};
