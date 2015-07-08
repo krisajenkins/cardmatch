@@ -15,6 +15,7 @@ import System exposing (..)
 import Time exposing (Time,second,millisecond,minute,every)
 import UI exposing (..)
 import Exts.Dict exposing (..)
+import Util
 
 port startTime : Time
 
@@ -65,11 +66,12 @@ maybeNewGame seed time products =
 newGame : Seed -> Time -> Dict ProductId Product -> (Seed,Game)
 newGame seed time ps =
   let productIds = keys ps
-      gameSize = min 6 (length productIds) -- TODO Shuffle
+      gameSize = min 6 (length productIds)
       lefts  = map2 (,) (repeat gameSize 0) (take gameSize productIds)
       rights = map2 (,) (repeat gameSize 1) (take gameSize productIds)
-  in (seed
-     ,{cards = List.map (\cardId -> (cardId,False)) (append lefts rights)
+      (newSeed,newCards) = Util.shuffle seed <| List.map (\cardId -> (cardId,False)) (append lefts rights)
+  in (newSeed
+     ,{cards = newCards
       ,duration = gameDuration
       ,started = time
       ,guesses = Set.empty})
